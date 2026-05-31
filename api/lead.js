@@ -5,31 +5,44 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({error:'Method not allowed'});
 
+  // Parse body — Vercel auto-parses JSON but NOT multipart FormData
+  // The landing pages send FormData, so we need to parse it manually
   let data = {};
   try {
-    // Handle both JSON and FormData
-    if (req.headers['content-type']?.includes('application/json')) {
-      data = req.body;
+    const ct = req.headers['content-type'] || '';
+    if (ct.includes('application/json')) {
+      data = req.body || {};
+    } else if (ct.includes('application/x-www-form-urlencoded')) {
+      const raw = await readBody(req);
+      data = Object.fromEntries(new URLSearchParams(raw));
     } else {
-      data = req.body; // Vercel parses FormData automatically
+      // multipart/form-data — parse manually
+      const raw = await readBody(req);
+      // Try as URL-encoded first, then JSON
+      try { data = Object.fromEntries(new URLSearchParams(raw)); } catch {}
+      if (!data.name) {
+        try { data = JSON.parse(raw); } catch {}
+      }
     }
-  } catch(e) {}
+  } catch(e) {
+    data = req.body || {};
+  }
 
-  const ts = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'});
-  const name = data.name || 'Unknown';
-  const phone = data.phone || 'N/A';
-  const email = data.email || 'N/A';
-  const page = data.page_title || data.source_page || 'Vision Landing Page';
-  const campaign = data.utm_campaign || 'direct';
-  const content = data.utm_content || '';
-  const fbclid = data.fbclid || '';
-  const damage = data.damage_type || data.interest || data.damage || '';
-  const insurance = data.insurance_status || '';
-  const url = data.page_url || '';
+  const ts = new Date().toLocaleString('en-US', {timeZone:'America/New_York'});
+  const name     = data.name             || 'Unknown';
+  const phone    = data.phone            || 'N/A';
+  const email    = data.email            || 'N/A';
+  const page     = data.page_title       || data.page || 'Vision Landing Page';
+  const campaign = data.utm_campaign     || 'direct';
+  const content  = data.utm_content      || '';
+  const fbclid   = data.fbclid          || '';
+  const damage   = data.damage_type     || data.interest || '';
+  const insurance= data.insurance_status || '';
+  const url      = data.page_url         || '';
 
-  const subject = `New Lead — ${page}`;
+  const subject = `\uD83D\uDD14 New Lead \u2014 ${page}`;
   const body = [
-    `NEW LEAD — Vision Aluminum & Glass`,
+    `NEW LEAD \u2014 Vision Aluminum & Glass`,
     `Submitted: ${ts}`,
     ``,
     `CONTACT`,
@@ -64,24 +77,41 @@ export default async function handler(req, res) {
           text: body
         })
       });
-      if (!r.ok) errors.push(`email: ${await r.text()}`);
+      const rj = await r.json();
+      if (!r.ok) errors.push(`email: ${JSON.stringify(rj)}`);
+      else console.log('Email sent:', rj.id);
     } catch(e) { errors.push(`email: ${e.message}`); }
+  } else {
+    errors.push('email: no RESEND_API_KEY');
   }
 
-  // 2. Post to Make webhook (→ Google Sheets)
+  // 2. Post to Google Apps Script webhook (-> Google Sheets)
   const MAKE_URL = process.env.MAKE_WEBHOOK_URL;
   if (MAKE_URL) {
     try {
-      await fetch(MAKE_URL, {
+      const r = await fetch(MAKE_URL, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({timestamp:ts, name, phone, email, page, damage_type:damage, insurance_status:insurance, utm_campaign:campaign, utm_content:content, page_url:url, fbclid})
+        body: JSON.stringify({
+          timestamp: ts, name, phone, email,
+          page, damage_type: damage, insurance_status: insurance,
+          utm_campaign: campaign, utm_content: content,
+          page_url: url, fbclid
+        })
       });
+      console.log('Sheets webhook:', r.status);
     } catch(e) { errors.push(`sheets: ${e.message}`); }
   }
 
-  // 3. Log for debugging
   console.log(JSON.stringify({ts, name, phone, campaign, errors}));
-
   return res.status(200).json({ok: true, errors});
+}
+
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', chunk => { body += chunk.toString(); });
+    req.on('end', () => resolve(body));
+    req.on('error', reject);
+  });
 }
