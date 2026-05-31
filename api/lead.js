@@ -72,14 +72,15 @@ export default async function handler(req, res) {
         headers: {'Authorization': `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json'},
         body: JSON.stringify({
           from: 'Vision Leads <onboarding@resend.dev>',
-          to: ['visionaluminumandglass@gmail.com', 'matan230595@gmail.com'],
+          to: ["matan230595@gmail.com"],
           subject,
           text: body
         })
       });
-      const rj = await r.json();
-      if (!r.ok) errors.push(`email: ${JSON.stringify(rj)}`);
-      else console.log('Email sent:', rj.id);
+      const rjText = await r.text();
+      console.log('Resend status:', r.status, 'body:', rjText);
+      if (!r.ok) errors.push(`email: ${r.status} ${rjText}`);
+      else console.log('Email sent OK:', rjText);
     } catch(e) { errors.push(`email: ${e.message}`); }
   } else {
     errors.push('email: no RESEND_API_KEY');
