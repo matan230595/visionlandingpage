@@ -1,0 +1,6 @@
+{
+  "routes": [
+    { "src": "/insurance", "dest": "/insurance.html" },
+    { "src": "/formfix.js", "dest": "/formfix.js" }
+  ]
+}
