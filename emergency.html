@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Window & Door Repair | Vision Aluminum & Glass | Same-Day Service</title>
+    <meta name="description" content="Broken window or door? Vision Aluminum & Glass provides emergency same-day repair in South Florida. Licensed, insured, 24/7 on-call. Call (954) 350-2622 now.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #1a0a0a;
+            --bg-card: #2a1a1a;
+            --urgent-red: #ff3333;
+            --urgent-orange: #ff6b35;
+            --white: #ffffff;
+            --gray-light: #cccccc;
+            --gray-mid: #888888;
+            --green-confirm: #00cc66;
+            --pulse-glow: rgba(255, 51, 51, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Sticky Header */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 10, 10, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 51, 51, 0.3);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .sticky-header .brand {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--white);
+        }
+
+        .sticky-header .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--urgent-red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--urgent-red);
+            border-radius: 50%;
+            animation: livePulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { box-shadow: 0 0 0 0 var(--pulse-glow); opacity: 1; }
+            50% { box-shadow: 0 0 0 8px transparent; opacity: 0.7; }
+        }
+
+        .sticky-header .cta-phone-sm {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--urgent-red);
+            color: var(--white);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            animation: btnPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 0 0 0 var(--pulse-glow); }
+            50% { box-shadow: 0 0 0 6px transparent; }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(255, 51, 51, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 107, 53, 0.06) 0%, transparent 50%),
+                var(--bg-dark);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--urgent-red), var(--urgent-orange), var(--urgent-red), transparent);
+            animation: scanline 3s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        .on-call-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid rgba(255, 51, 51, 0.4);
+            border-radius: 40px;
+            padding: 8px 20px;
+            margin-bottom: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--urgent-red);
+        }
+
+        .on-call-badge .pulse-ring {
+            width: 12px;
+            height: 12px;
+            background: var(--urgent-red);
+            border-radius: 50%;
+            position: relative;
+            animation: livePulse 1.5s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--urgent-red);
+            display: block;
+        }
+
+        .hero .sub {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--gray-light);
+            max-width: 600px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--urgent-red);
+            color: var(--white);
+            text-decoration: none;
+            padding: 20px 50px;
+            border-radius: 8px;
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: btnPulse 2s ease-in-out infinite;
+            transition: transform 0.2s ease, background 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-phone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shimmer 2.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .hero-phone:hover {
+            transform: scale(1.04);
+            background: #e62e2e;
+        }
+
+        .hero-phone svg {
+            width: 28px;
+            height: 28px;
+            animation: ring 1.5s ease-in-out infinite;
+        }
+
+        @keyframes ring {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(14deg); }
+            20% { transform: rotate(-10deg); }
+            30% { transform: rotate(8deg); }
+            40% { transform: rotate(-6deg); }
+            50% { transform: rotate(0deg); }
+        }
+
+        /* Urgency Bar */
+        .urgency-bar {
+            margin-top: 50px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 12px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            max-width: 500px;
+        }
+
+        .urgency-bar .slots-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 107, 53, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .urgency-bar .slots-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .urgency-bar .slots-text span {
+            color: var(--urgent-orange);
+            font-size: 1.6rem;
+        }
+
+        .slots-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .slots-progress-fill {
+            width: 25%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--urgent-orange), var(--urgent-red));
+            border-radius: 3px;
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Sections Common */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--urgent-orange);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            line-height: 1.1;
+        }
+
+        /* Process Steps */
+        .process {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(42, 26, 26, 0.5) 100%);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 51, 51, 0.15);
+            border-radius: 16px;
+            padding: 40px 30px;
+            position: relative;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: rgba(255, 51, 51, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .step-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: rgba(255, 51, 51, 0.15);
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        .step-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--urgent-red);
+        }
+
+        .step-card .timeframe {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--urgent-orange);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: var(--gray-light);
+            font-size: 0.95rem;
+        }
+
+        /* Trust Badges */
+        .trust {
+            background: var(--bg-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .trust-badge {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            transition: border-color 0.3s ease;
+        }
+
+        .trust-badge:hover {
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+
+        .trust-badge .badge-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 14px;
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trust-badge .badge-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--urgent-orange);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .trust-badge h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .trust-badge p {
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+        }
+
+        /* Emergency Types */
+        .emergencies {
+            background: linear-gradient(180deg, rgba(42, 26, 26, 0.3) 0%, var(--bg-dark) 100%);
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .emergency-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 51, 51, 0.1);
+            border-radius: 14px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .emergency-card:hover {
+            border-color: var(--urgent-red);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 51, 51, 0.1);
+        }
+
+        .emergency-card .em-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 18px;
+            background: rgba(255, 51, 51, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emergency-card .em-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--urgent-red);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .emergency-card h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .emergency-card p {
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+        }
+
+        /* Insurance Section */
+        .insurance {
+            background: var(--bg-dark);
+        }
+
+        .insurance-box {
+            background: linear-gradient(135deg, rgba(0, 204, 102, 0.05) 0%, rgba(42, 26, 26, 0.8) 100%);
+            border: 1px solid rgba(0, 204, 102, 0.2);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .insurance-box .dollar-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 24px;
+            background: rgba(0, 204, 102, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .insurance-box h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            color: var(--green-confirm);
+        }
+
+        .insurance-box p {
+            font-size: 1.05rem;
+            color: var(--gray-light);
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+
+        .insurance-box .ins-list {
+            list-style: none;
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .insurance-box .ins-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--gray-light);
+        }
+
+        .insurance-box .ins-list li::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--green-confirm);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(42, 26, 26, 0.6) 100%);
+        }
+
+        .form-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 51, 51, 0.2);
+            border-radius: 20px;
+            padding: 50px 40px;
+        }
+
+        .form-wrapper h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .form-wrapper .form-sub {
+            text-align: center;
+            color: var(--gray-mid);
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-light);
+            margin-bottom: 8px;
+        }
+
+        .form-group label .req {
+            color: var(--urgent-red);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--urgent-orange);
+        }
+
+        .form-group input::placeholder {
+            color: var(--gray-mid);
+        }
+
+        .form-group select {
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        .form-group select option {
+            background: var(--bg-card);
+            color: var(--white);
+        }
+
+        .urgency-radios {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .urgency-radios label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+            transition: all 0.2s ease;
+        }
+
+        .urgency-radios label:has(input:checked) {
+            border-color: var(--urgent-red);
+            background: rgba(255, 51, 51, 0.1);
+        }
+
+        .urgency-radios input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--urgent-red);
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 10px;
+            padding: 18px;
+            background: var(--urgent-red);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            animation: btnPulse 2s ease-in-out infinite;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .form-submit:hover {
+            background: #e62e2e;
+            transform: scale(1.02);
+        }
+
+        .form-disclaimer {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.75rem;
+            color: var(--gray-mid);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--bg-card);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item .stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--urgent-orange);
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            background: var(--bg-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer .footer-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        footer .footer-license {
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+            margin-bottom: 6px;
+        }
+
+        footer .footer-areas {
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: transform 0.2s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-btn svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sticky-header {
+                padding: 8px 14px;
+            }
+
+            .sticky-header .brand {
+                font-size: 0.8rem;
+                display: none;
+            }
+
+            .sticky-header .live-badge {
+                font-size: 0.7rem;
+            }
+
+            .sticky-header .cta-phone-sm {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+
+            .hero {
+                padding: 100px 16px 50px;
+            }
+
+            .hero-phone {
+                padding: 16px 30px;
+                font-size: 1.4rem;
+            }
+
+            .urgency-bar {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .form-wrapper {
+                padding: 30px 20px;
+            }
+
+            .urgency-radios {
+                flex-direction: column;
+            }
+
+            .insurance-box {
+                padding: 40px 24px;
+            }
+
+            section {
+                padding: 60px 16px;
+            }
+
+            .whatsapp-btn {
+                bottom: 16px;
+                right: 16px;
+                width: 52px;
+                height: 52px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-phone {
+                padding: 14px 24px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Header -->
+    <header class="sticky-header">
+        <div class="brand">Vision Aluminum & Glass</div>
+        <div class="live-badge">
+            <div class="live-dot"></div>
+            On Call Now
+        </div>
+        <a href="tel:9543502622" class="cta-phone-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            (954) 350-2622
+        </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="on-call-badge">
+            <div class="pulse-ring"></div>
+            On Call Now &mdash; 24/7 Emergency Service
+        </div>
+
+        <h1>
+            Emergency Repair
+            <span class="highlight">We Come Today.</span>
+        </h1>
+
+        <p class="sub">Your home is exposed right now. Our licensed technicians are dispatched within 60 minutes to secure your property. Same-day permanent repairs available.</p>
+
+        <a href="tel:9543502622" class="hero-phone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            (954) 350-2622
+        </a>
+
+        <div class="urgency-bar">
+            <div class="slots-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div>
+                <div class="slots-text"><span id="slotsCount">3</span> Emergency Slots Available Today</div>
+                <div class="slots-progress"><div class="slots-progress-fill"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <div class="section-label">What Happens When You Call</div>
+            <h2 class="section-title">From Call to Secure<br>in Under 60 Minutes</h2>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h3>Rapid Response</h3>
+                    <div class="timeframe">Within 60 minutes</div>
+                    <p>Licensed technician dispatched to your location. We confirm arrival time immediately on the phone.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h3>Board-Up & Secure</h3>
+                    <div class="timeframe">On arrival</div>
+                    <p>Your home is secured against weather, intruders, and pests. We document everything for insurance claims.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h3>Permanent Fix</h3>
+                    <div class="timeframe">Within 24-48 hours</div>
+                    <p>Full replacement with matching materials. Impact glass upgrade available. Backed by our warranty.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">1,200+</div>
+                <div class="stat-label">Homes Secured</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">847</div>
+                <div class="stat-label">Storm Repairs This Season</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4.9/5</div>
+                <div class="stat-label">Customer Rating</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Badges -->
+    <section class="trust">
+        <div class="container">
+            <div class="trust-grid">
+                <div class="trust-badge">
+                    <div class="badge-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h4>Licensed</h4>
+                    <p>CGC 1537007</p>
+                </div>
+                <div class="trust-badge">
+                    <div class="badge-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                    </div>
+                    <h4>Fully Insured</h4>
+                    <p>Complete liability coverage</p>
+                </div>
+                <div class="trust-badge">
+                    <div class="badge-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    <h4>Background Checked</h4>
+                    <p>All technicians vetted</p>
+                </div>
+                <div class="trust-badge">
+                    <div class="badge-icon">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    </div>
+                    <h4>1,200+ Projects</h4>
+                    <p>South Florida trusted</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Types -->
+    <section class="emergencies">
+        <div class="container">
+            <div class="section-label">Types of Emergencies We Handle</div>
+            <h2 class="section-title">Whatever Happened,<br>We Fix It Today</h2>
+
+            <div class="emergency-grid">
+                <div class="emergency-card">
+                    <div class="em-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="3" x2="21" y2="21"></line><line x1="21" y1="3" x2="3" y2="21"></line></svg>
+                    </div>
+                    <h4>Broken Window</h4>
+                    <p>Shattered panes, cracked glass, failed seals. We secure and replace same-day.</p>
+                </div>
+                <div class="emergency-card">
+                    <div class="em-icon">
+                        <svg viewBox="0 0 24 24"><path d="M18 10h-4V4a2 2 0 0 0-4 0v6H6l6 8 6-8z"></path><line x1="5" y1="22" x2="19" y2="22"></line></svg>
+                    </div>
+                    <h4>Storm Damage</h4>
+                    <p>Hurricane debris, wind damage, water intrusion. Rapid board-up and permanent repair.</p>
+                </div>
+                <div class="emergency-card">
+                    <div class="em-icon">
+                        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                    </div>
+                    <h4>Break-In Damage</h4>
+                    <p>Forced entry, smashed doors or windows. We secure your home and restore safety.</p>
+                </div>
+                <div class="emergency-card">
+                    <div class="em-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18"></path></svg>
+                    </div>
+                    <h4>Door Damage</h4>
+                    <p>Sliding doors off track, broken frames, impact door failures. Full repair or replacement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insurance Section -->
+    <section class="insurance">
+        <div class="container">
+            <div class="insurance-box">
+                <div class="dollar-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00cc66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <h2>Zero Out-of-Pocket<br>If Insurance Covers It</h2>
+                <p>We handle the entire insurance claims process for you. Focus on your family while we deal with the paperwork.</p>
+                <ul class="ins-list">
+                    <li>We document all damage on-site</li>
+                    <li>Direct billing to your insurance provider</li>
+                    <li>Claims assistance from start to finish</li>
+                    <li>No surprise charges or hidden fees</li>
+                    <li>Supplemental claim support if needed</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Form -->
+    <section class="form-section" id="form">
+        <div class="container">
+            <div class="form-wrapper">
+                <h2>Request Emergency Dispatch</h2>
+                <p class="form-sub">Fill out below and we call you back in under 5 minutes.</p>
+
+                <form id="emergencyForm" action="#" method="POST" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="name" placeholder="Full name" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number <span class="req">*</span></label>
+                        <input type="tel" name="phone" placeholder="(555) 000-0000" required autocomplete="tel">
+                    </div>
+                    <div class="form-group">
+                        <label>ZIP Code</label>
+                        <input type="text" name="zip" placeholder="e.g. 33009" maxlength="5" autocomplete="postal-code">
+                    </div>
+                    <div class="form-group">
+                        <label>Type of Damage</label>
+                        <select name="damage_type">
+                            <option value="" disabled selected>Select damage type</option>
+                            <option value="broken_window">Broken Window</option>
+                            <option value="storm_damage">Storm Damage</option>
+                            <option value="break_in">Break-In Damage</option>
+                            <option value="door_damage">Door Damage</option>
+                            <option value="sliding_door">Sliding Door Issue</option>
+                            <option value="other">Other Emergency</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>How Urgent?</label>
+                        <div class="urgency-radios">
+                            <label><input type="radio" name="urgency" value="immediate" checked> Right now</label>
+                            <label><input type="radio" name="urgency" value="today"> Today</label>
+                            <label><input type="radio" name="urgency" value="tomorrow"> Tomorrow</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="form-submit">Get Emergency Help Now</button>
+                </form>
+                <p class="form-disclaimer">By submitting, you agree to receive a call from our dispatch team. We respect your privacy.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">Vision Aluminum & Glass Specialists</div>
+        <div class="footer-license">License CGC 1537007 | Fully Insured | 10+ Years in South Florida</div>
+        <div class="footer-areas">Serving Miami-Dade, Broward & Palm Beach Counties</div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/19543502622?text=I%20need%20emergency%20window%2Fdoor%20repair" class="whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Form submission handler
+        function handleSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const phone = form.querySelector('input[name="phone"]').value.trim();
+            if (!phone) {
+                alert('Please enter your phone number so we can reach you.');
+                return;
+            }
+            const btn = form.querySelector('.form-submit');
+            btn.textContent = 'Dispatching...';
+            btn.style.background = '#00cc66';
+            btn.style.animation = 'none';
+            setTimeout(() => {
+                btn.textContent = 'We Will Call You Shortly!';
+            }, 1500);
+        }
+
+        // Simulate slot countdown (decreases after random interval for urgency)
+        (function() {
+            const slotsEl = document.getElementById('slotsCount');
+            let slots = 3;
+            function decrementSlot() {
+                if (slots > 1) {
+                    slots--;
+                    slotsEl.textContent = slots;
+                    const progressFill = document.querySelector('.slots-progress-fill');
+                    if (slots === 2) progressFill.style.width = '50%';
+                    if (slots === 1) progressFill.style.width = '80%';
+                }
+            }
+            // Random decrement between 45-90 seconds
+            setTimeout(decrementSlot, Math.random() * 45000 + 45000);
+            setTimeout(decrementSlot, Math.random() * 60000 + 90000);
+        })();
+
+        // Phone formatting
+        const phoneInput = document.querySelector('input[name="phone"]');
+        phoneInput.addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val.length > 10) val = val.slice(0, 10);
+            if (val.length >= 6) {
+                val = '(' + val.slice(0,3) + ') ' + val.slice(3,6) + '-' + val.slice(6);
+            } else if (val.length >= 3) {
+                val = '(' + val.slice(0,3) + ') ' + val.slice(3);
+            }
+            e.target.value = val;
+        });
+    </script>
+
+    <!-- Vision Forms Fix: Formspree + UTM Tracking -->
+    <script>
+    (function() {
+      var FORMSPREE = 'https://formspree.io/f/maqkzzwq';
+      function getUTM() {
+        var p = new URLSearchParams(window.location.search);
+        return {
+          utm_source: p.get('utm_source')||'',
+          utm_medium: p.get('utm_medium')||'',
+          utm_campaign: p.get('utm_campaign')||'',
+          utm_content: p.get('utm_content')||'',
+          utm_term: p.get('utm_term')||'',
+          fbclid: p.get('fbclid')||'',
+          page_url: window.location.href,
+          page_title: document.title.substring(0,80),
+          referrer: document.referrer||'direct'
+        };
+      }
+      function addHidden(form, name, value) {
+        if (!value) return;
+        var inp = document.createElement('input');
+        inp.type = 'hidden'; inp.name = name; inp.value = value;
+        form.appendChild(inp);
+      }
+      function submitToFormspree(form, successCallback, errorCallback) {
+        var fd = new FormData(form);
+        var utm = getUTM();
+        Object.keys(utm).forEach(function(k){ if(utm[k]) fd.append(k, utm[k]); });
+        fd.append('submitted_at', new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));
+        fd.append('_cc', 'matan230595@gmail.com');
+        fetch(FORMSPREE, {method:'POST', body:fd, headers:{'Accept':'application/json'}})
+          .then(function(r){ 
+            if(r.ok){ 
+              if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:document.title,content_category:utm.utm_campaign||'direct'});
+              successCallback();
+            } else { errorCallback(); }
+          })
+          .catch(function(){ errorCallback(); });
+      }
+      window.__visionSubmit = submitToFormspree;
+      
+      // Auto-fix any form with action="#" or missing action
+      document.addEventListener('DOMContentLoaded', function() {
+        var forms = document.querySelectorAll('form');
+        forms.forEach(function(form) {
+          var action = form.getAttribute('action');
+          if (action === '#' || action === null || action === '') {
+            form.addEventListener('submit', function(e) {
+              e.preventDefault();
+              var btn = form.querySelector('button[type="submit"],input[type="submit"]');
+              var origText = btn ? (btn.textContent || btn.value) : '';
+              if(btn){ btn.disabled=true; btn.textContent = btn.value = 'Sending...'; }
+              submitToFormspree(form, function() {
+                // Success
+                form.innerHTML = '<div style="text-align:center;padding:40px 20px"><div style="font-size:3rem;margin-bottom:16px">✓</div><h3 style="font-size:1.4rem;font-weight:700;margin-bottom:12px">Request Received!</h3><p style="opacity:0.75;line-height:1.7;margin-bottom:20px">Our team will call you within 1 hour.</p><a href="tel:9543502622" style="display:inline-block;padding:14px 28px;background:#00b894;color:#0a1628;font-weight:700;border-radius:8px;text-decoration:none">(954) 350-2622</a></div>';
+              }, function() {
+                if(btn){ btn.disabled=false; btn.textContent=btn.value=origText; }
+                alert('Something went wrong. Please call (954) 350-2622');
+              });
+            }, {once:true});
+          }
+        });
+      });
+    })();
+    </script>
+
+</body>
+</html>

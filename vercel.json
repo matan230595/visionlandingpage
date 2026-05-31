@@ -1,7 +1,12 @@
 {
   "routes": [
+    { "src": "/luxury",    "dest": "/luxury.html" },
+    { "src": "/emergency", "dest": "/emergency.html" },
     { "src": "/insurance", "dest": "/insurance.html" },
-    { "src": "/luxury", "dest": "/luxury.html" },
-    { "src": "/formfix.js", "dest": "/formfix.js" }
+    { "src": "/solutions", "dest": "/solutions.html" },
+    { "src": "/espanol",   "dest": "/espanol.html" },
+    { "src": "/impact",    "dest": "/luxury.html" },
+    { "src": "/repair",    "dest": "/emergency.html" },
+    { "src": "/formfix.js","dest": "/formfix.js" }
   ]
 }
