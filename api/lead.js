@@ -5,7 +5,6 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({error:'Method not allowed'});
 
-  // Parse body (FormData or JSON)
   let data = {};
   try {
     const ct = req.headers['content-type'] || '';
@@ -33,36 +32,37 @@ export default async function handler(req, res) {
     fbclid:           data.fbclid           || ''
   };
 
-  // Send to Google Apps Script → handles Sheet + Email
-  const MAKE_DIRECT = "https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9";
-  const WEBHOOK = process.env.MAKE_WEBHOOK_URL;
-  if (WEBHOOK) {
-    try {
-      const r = await fetch(WEBHOOK, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      });
-      const text = await r.text();
-      console.log('Apps Script:', r.status, text);
-    } catch(e) {
-      console.error('Apps Script error:', e.message);
-    }
-  } else {
-    console.error('No MAKE_WEBHOOK_URL set');
+  console.log('Lead received:', JSON.stringify({name: payload.name, campaign: payload.utm_campaign}));
+
+  // 1. Apps Script → Sheet + Email (Gmail)
+  const APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbw3HM090vf85ch3QmKHfGVzYT0KxM7EXYT6v462yG9vHYPqaws83tRLT88PNhJveyDM/exec";
+  try {
+    const r = await fetch(APPS_SCRIPT, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      redirect: 'follow',
+      body: JSON.stringify(payload)
+    });
+    const text = await r.text();
+    console.log('Apps Script status:', r.status, 'body:', text.substring(0, 200));
+  } catch(e) {
+    console.error('Apps Script error:', e.message);
   }
 
-  // Also send to Make.com (Google Sheets via Make)
+  // 2. Make.com → Google Sheets (backup)
+  const MAKE = "https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9";
   try {
-    const mr = await fetch(MAKE_DIRECT, {
+    const mr = await fetch(MAKE, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     });
-    console.log('Make webhook:', mr.status);
-  } catch(e) { console.error('Make error:', e.message); }
+    const mtext = await mr.text();
+    console.log('Make status:', mr.status, 'body:', mtext.substring(0, 100));
+  } catch(e) {
+    console.error('Make error:', e.message);
+  }
 
-  console.log(JSON.stringify({ts, name: payload.name, campaign: payload.utm_campaign}));
   return res.status(200).json({ok: true});
 }
 
