@@ -1350,7 +1350,7 @@
         fd.append('submitted_at',new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));
         if(!fd.get('_cc'))fd.append('_cc','matan230595@gmail.com');
         if(!fd.get('_subject'))fd.append('_subject','New Lead - '+document.title.substring(0,50));
-        fetch(FS,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+        fetch(FS,{method:'POST',body:JSON.stringify(Object.fromEntries(fd)),headers:{'Accept':'application/json','Content-Type':'application/json'}})
           .then(function(r){
             if(r.ok){
               fbq('track','Lead',{content_name:document.title,content_category:u.utm_campaign||'direct'});

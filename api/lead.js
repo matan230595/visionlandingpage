@@ -7,22 +7,22 @@ export default async function handler(req, res) {
 
   let data = {};
   try {
-    const ct = req.headers['content-type'] || '';
-    if (ct.includes('application/json')) {
-      data = req.body || {};
-    } else {
-      const raw = await readBody(req);
+    const raw = await readBody(req);
+    console.log('Raw body preview:', raw.substring(0, 300));
+    try { data = JSON.parse(raw); } catch {}
+    if (!data.name) {
       try { data = Object.fromEntries(new URLSearchParams(raw)); } catch {}
-      if (!data.name) { try { data = JSON.parse(raw); } catch {} }
     }
-  } catch(e) { data = req.body || {}; }
+  } catch(e) {
+    data = req.body || {};
+  }
 
   const ts = new Date().toLocaleString('en-US', {timeZone:'America/New_York'});
   const payload = {
     timestamp:        ts,
-    name:             data.name             || 'Unknown',
-    phone:            data.phone            || 'N/A',
-    email:            data.email            || 'N/A',
+    name:             data.name             || '',
+    phone:            data.phone            || '',
+    email:            data.email            || '',
     page:             data.page_title       || data.page || 'Vision Landing Page',
     damage_type:      data.damage_type      || data.interest || '',
     insurance_status: data.insurance_status || '',
@@ -32,9 +32,9 @@ export default async function handler(req, res) {
     fbclid:           data.fbclid           || ''
   };
 
-  console.log('Lead received:', JSON.stringify({name: payload.name, campaign: payload.utm_campaign}));
+  console.log('Parsed lead:', payload.name, payload.phone, payload.email, payload.damage_type);
 
-  // 1. Apps Script → Sheet + Email (Gmail)
+  // 1. Apps Script → Sheet + Email
   const APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbw3HM090vf85ch3QmKHfGVzYT0KxM7EXYT6v462yG9vHYPqaws83tRLT88PNhJveyDM/exec";
   try {
     const r = await fetch(APPS_SCRIPT, {
@@ -44,12 +44,10 @@ export default async function handler(req, res) {
       body: JSON.stringify(payload)
     });
     const text = await r.text();
-    console.log('Apps Script status:', r.status, 'body:', text.substring(0, 200));
-  } catch(e) {
-    console.error('Apps Script error:', e.message);
-  }
+    console.log('Apps Script:', r.status, text.substring(0, 150));
+  } catch(e) { console.error('Apps Script error:', e.message); }
 
-  // 2. Make.com → Google Sheets (backup)
+  // 2. Make → Google Sheets (backup)
   const MAKE = "https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9";
   try {
     const mr = await fetch(MAKE, {
@@ -57,11 +55,8 @@ export default async function handler(req, res) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     });
-    const mtext = await mr.text();
-    console.log('Make status:', mr.status, 'body:', mtext.substring(0, 100));
-  } catch(e) {
-    console.error('Make error:', e.message);
-  }
+    console.log('Make:', mr.status);
+  } catch(e) { console.error('Make error:', e.message); }
 
   return res.status(200).json({ok: true});
 }
