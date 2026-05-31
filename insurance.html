@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Meta Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1010205391178861');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1010205391178861&ev=PageView&noscript=1"/></noscript>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insurance Claim Help — Vision Aluminum & Glass | Don't Get Lowballed</title>
@@ -1710,66 +1724,61 @@
     </script>
 
 
-    <!-- Vision Forms Fix: Formspree + UTM Tracking -->
+    <!-- Formspree + UTM + Pixel Lead -->
     <script>
-    (function() {
-      var FORMSPREE = 'https://formspree.io/f/maqkzzwq';
-      function getUTM() {
-        var p = new URLSearchParams(window.location.search);
+    (function(){
+      var FS='https://formspree.io/f/maqkzzwq';
+      function utm(){
+        var p=new URLSearchParams(window.location.search);
         return {
-          utm_source: p.get('utm_source')||'',
-          utm_medium: p.get('utm_medium')||'',
-          utm_campaign: p.get('utm_campaign')||'',
-          utm_content: p.get('utm_content')||'',
-          utm_term: p.get('utm_term')||'',
-          fbclid: p.get('fbclid')||'',
-          page_url: window.location.href,
-          page_title: document.title.substring(0,80),
-          referrer: document.referrer||'direct'
+          utm_source:p.get('utm_source')||'',
+          utm_medium:p.get('utm_medium')||'',
+          utm_campaign:p.get('utm_campaign')||'',
+          utm_content:p.get('utm_content')||'',
+          utm_term:p.get('utm_term')||'',
+          fbclid:p.get('fbclid')||'',
+          page_url:window.location.href,
+          page_title:document.title.substring(0,80)
         };
       }
-      function addHidden(form, name, value) {
-        if (!value) return;
-        var inp = document.createElement('input');
-        inp.type = 'hidden'; inp.name = name; inp.value = value;
-        form.appendChild(inp);
-      }
-      function submitToFormspree(form, successCallback, errorCallback) {
-        var fd = new FormData(form);
-        var utm = getUTM();
-        Object.keys(utm).forEach(function(k){ if(utm[k]) fd.append(k, utm[k]); });
-        fd.append('submitted_at', new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));
-        fd.append('_cc', 'matan230595@gmail.com');
-        fetch(FORMSPREE, {method:'POST', body:fd, headers:{'Accept':'application/json'}})
-          .then(function(r){ 
-            if(r.ok){ 
-              if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:document.title,content_category:utm.utm_campaign||'direct'});
-              successCallback();
-            } else { errorCallback(); }
-          })
-          .catch(function(){ errorCallback(); });
-      }
-      window.__visionSubmit = submitToFormspree;
+      var isES=/\/espanol/i.test(window.location.pathname)||document.documentElement.lang==='es';
+      var OK_EN='<div style="text-align:center;padding:40px 20px;grid-column:1/-1"><div style="font-size:3rem;margin-bottom:16px">&#10003;</div><h3 style="font-size:1.4rem;font-weight:700;margin-bottom:12px">Request Received!</h3><p style="opacity:.75;line-height:1.7;margin-bottom:20px">Our team will call you within 1 hour.</p><a href="tel:9543502622" style="display:inline-block;padding:14px 28px;background:#00b894;color:#0a1628;font-weight:700;border-radius:8px;text-decoration:none">(954) 350-2622</a></div>';
+      var OK_ES='<div style="text-align:center;padding:40px 20px;grid-column:1/-1"><div style="font-size:3rem;margin-bottom:16px">&#10003;</div><h3 style="font-size:1.4rem;font-weight:700;margin-bottom:12px">&#161;Gracias! Recibimos tu solicitud.</h3><p style="opacity:.75;line-height:1.7;margin-bottom:20px">Te llamamos en menos de 1 hora.</p><a href="tel:9543502622" style="display:inline-block;padding:14px 28px;background:#c9a84c;color:#0a0a14;font-weight:700;border-radius:8px;text-decoration:none">(954) 350-2622</a></div>';
       
-      // Auto-fix any form with action="#" or missing action
-      document.addEventListener('DOMContentLoaded', function() {
-        var forms = document.querySelectorAll('form');
-        forms.forEach(function(form) {
-          var action = form.getAttribute('action');
-          if (action === '#' || action === null || action === '') {
-            form.addEventListener('submit', function(e) {
-              e.preventDefault();
-              var btn = form.querySelector('button[type="submit"],input[type="submit"]');
-              var origText = btn ? (btn.textContent || btn.value) : '';
-              if(btn){ btn.disabled=true; btn.textContent = btn.value = 'Sending...'; }
-              submitToFormspree(form, function() {
-                // Success
-                form.innerHTML = '<div style="text-align:center;padding:40px 20px"><div style="font-size:3rem;margin-bottom:16px">✓</div><h3 style="font-size:1.4rem;font-weight:700;margin-bottom:12px">Request Received!</h3><p style="opacity:0.75;line-height:1.7;margin-bottom:20px">Our team will call you within 1 hour.</p><a href="tel:9543502622" style="display:inline-block;padding:14px 28px;background:#00b894;color:#0a1628;font-weight:700;border-radius:8px;text-decoration:none">(954) 350-2622</a></div>';
-              }, function() {
-                if(btn){ btn.disabled=false; btn.textContent=btn.value=origText; }
-                alert('Something went wrong. Please call (954) 350-2622');
-              });
-            }, {once:true});
+      function send(form){
+        var btn=form.querySelector('button[type="submit"],input[type="submit"],.form-submit');
+        var orig=btn?btn.textContent||btn.value:'';
+        if(btn){btn.disabled=true;btn.textContent=btn.value='Sending...';}
+        var fd=new FormData(form);
+        var u=utm();
+        Object.keys(u).forEach(function(k){if(u[k])fd.append(k,u[k]);});
+        fd.append('submitted_at',new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));
+        if(!fd.get('_cc'))fd.append('_cc','matan230595@gmail.com');
+        if(!fd.get('_subject'))fd.append('_subject','New Lead - '+document.title.substring(0,50));
+        fetch(FS,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+          .then(function(r){
+            if(r.ok){
+              fbq('track','Lead',{content_name:document.title,content_category:u.utm_campaign||'direct'});
+              var ok=isES?OK_ES:OK_EN;
+              // Try to show success inline
+              var box=document.getElementById('successBox');
+              if(box){form.style.display='none';box.style.display='block';}
+              else{form.innerHTML=ok;}
+            }else{throw new Error('err');}
+          })
+          .catch(function(){
+            if(btn){btn.disabled=false;btn.textContent=btn.value=orig;}
+            alert('Something went wrong. Please call (954) 350-2622');
+          });
+      }
+      // Override ANY handleSubmit (replaces fake handlers in emergency/solutions/espanol)
+      window.handleSubmit=function(e){e.preventDefault();send(e.target);};
+      // Also catch forms with action="#" (luxury uses addEventListener, this catches it too)
+      document.addEventListener('DOMContentLoaded',function(){
+        document.querySelectorAll('form').forEach(function(form){
+          var a=form.getAttribute('action');
+          if((a===null||a===''||a==='#')&&!form.getAttribute('onsubmit')){
+            form.addEventListener('submit',function(e){e.preventDefault();send(form);});
           }
         });
       });
