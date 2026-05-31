@@ -8,14 +8,9 @@ export default async function handler(req, res) {
   let data = {};
   try {
     const raw = await readBody(req);
-    console.log('Raw body preview:', raw.substring(0, 300));
     try { data = JSON.parse(raw); } catch {}
-    if (!data.name) {
-      try { data = Object.fromEntries(new URLSearchParams(raw)); } catch {}
-    }
-  } catch(e) {
-    data = req.body || {};
-  }
+    if (!data.name) { try { data = Object.fromEntries(new URLSearchParams(raw)); } catch {} }
+  } catch(e) { data = req.body || {}; }
 
   const ts = new Date().toLocaleString('en-US', {timeZone:'America/New_York'});
   const payload = {
@@ -23,18 +18,21 @@ export default async function handler(req, res) {
     name:             data.name             || '',
     phone:            data.phone            || '',
     email:            data.email            || '',
-    page:             data.page_title       || data.page || 'Vision Landing Page',
-    damage_type:      data.damage_type      || data.interest || '',
+    form_source:      data.form_source      || data.page_title || 'Unknown Page',
+    series:           data.series           || '',
+    damage_type:      data.damage_type      || data.interest   || '',
     insurance_status: data.insurance_status || '',
+    damage_date:      data.damage_date      || '',
     utm_campaign:     data.utm_campaign     || 'direct',
     utm_content:      data.utm_content      || '',
+    utm_source:       data.utm_source       || '',
     page_url:         data.page_url         || '',
     fbclid:           data.fbclid           || ''
   };
 
-  console.log('Parsed lead:', payload.name, payload.phone, payload.email, payload.damage_type);
+  console.log('Lead:', payload.name, '|', payload.form_source, '|', payload.utm_campaign);
 
-  // 1. Apps Script → Sheet + Email
+  // 1. Apps Script → Gmail + Google Sheets
   const APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbw3HM090vf85ch3QmKHfGVzYT0KxM7EXYT6v462yG9vHYPqaws83tRLT88PNhJveyDM/exec";
   try {
     const r = await fetch(APPS_SCRIPT, {
@@ -44,7 +42,7 @@ export default async function handler(req, res) {
       body: JSON.stringify(payload)
     });
     const text = await r.text();
-    console.log('Apps Script:', r.status, text.substring(0, 150));
+    console.log('Apps Script:', r.status, text.substring(0, 100));
   } catch(e) { console.error('Apps Script error:', e.message); }
 
   // 2. Make → Google Sheets (backup)
