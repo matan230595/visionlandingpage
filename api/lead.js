@@ -18,9 +18,9 @@ export default async function handler(req, res) {
     name:             data.name             || '',
     phone:            data.phone            || '',
     email:            data.email            || '',
-    form_source:      data.form_source      || data.page_title || 'Unknown Page',
+    form_source:      data.form_source      || 'Vision Landing Page',
     series:           data.series           || '',
-    damage_type:      data.damage_type      || data.interest   || '',
+    damage_type:      data.damage_type      || data.interest || '',
     insurance_status: data.insurance_status || '',
     damage_date:      data.damage_date      || '',
     utm_campaign:     data.utm_campaign     || 'direct',
@@ -32,8 +32,56 @@ export default async function handler(req, res) {
 
   console.log('Lead:', payload.name, '|', payload.form_source, '|', payload.utm_campaign);
 
-  // 1. Apps Script → Gmail + Google Sheets
-  const APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbw3HM090vf85ch3QmKHfGVzYT0KxM7EXYT6v462yG9vHYPqaws83tRLT88PNhJveyDM/exec";
+  // 1. Facebook Conversions API (CAPI) — server-side, bypasses ad blockers
+  const PIXEL_ID  = '434905002786379';
+  const CAPI_TOKEN = process.env.FB_CAPI_TOKEN;
+  if (CAPI_TOKEN) {
+    try {
+      // Hash helper (SHA256)
+      const { createHash } = await import('crypto');
+      const hash = (v) => v ? createHash('sha256').update(v.trim().toLowerCase()).digest('hex') : undefined;
+
+      const capiBody = {
+        data: [{
+          event_name:  'Lead',
+          event_time:  Math.floor(Date.now() / 1000),
+          event_source_url: payload.page_url || 'https://vision-landing-pages.vercel.app',
+          action_source: 'website',
+          user_data: {
+            em:  hash(payload.email),
+            ph:  hash(payload.phone?.replace(/\D/g, '')),
+            fn:  hash(payload.name?.split(' ')[0]),
+            ln:  hash(payload.name?.split(' ').slice(1).join(' ')),
+            fbc: payload.fbclid ? `fb.1.${Date.now()}.${payload.fbclid}` : undefined,
+          },
+          custom_data: {
+            form_source:  payload.form_source,
+            series:       payload.series,
+            campaign:     payload.utm_campaign,
+            ad_content:   payload.utm_content,
+            damage_type:  payload.damage_type,
+          }
+        }]
+      };
+
+      // Remove undefined fields
+      capiBody.data[0].user_data = Object.fromEntries(
+        Object.entries(capiBody.data[0].user_data).filter(([,v]) => v !== undefined)
+      );
+
+      const capiRes = await fetch(
+        `https://graph.facebook.com/v19.0/${PIXEL_ID}/events?access_token=${CAPI_TOKEN}`,
+        { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(capiBody) }
+      );
+      const capiJson = await capiRes.json();
+      console.log('CAPI:', capiRes.status, JSON.stringify(capiJson).substring(0, 100));
+    } catch(e) { console.error('CAPI error:', e.message); }
+  } else {
+    console.log('CAPI: no FB_CAPI_TOKEN set — skipping');
+  }
+
+  // 2. Apps Script → Gmail + Google Sheets
+  const APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbw3HM090vf85ch3QmKHfGVzYT0KxM7EXYT6v462yG9vHYPqaws83tRLT88PNhJveyDM/exec';
   try {
     const r = await fetch(APPS_SCRIPT, {
       method: 'POST',
@@ -42,11 +90,11 @@ export default async function handler(req, res) {
       body: JSON.stringify(payload)
     });
     const text = await r.text();
-    console.log('Apps Script:', r.status, text.substring(0, 100));
+    console.log('Apps Script:', r.status, text.substring(0, 80));
   } catch(e) { console.error('Apps Script error:', e.message); }
 
-  // 2. Make → Google Sheets (backup)
-  const MAKE = "https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9";
+  // 3. Make → Google Sheets backup
+  const MAKE = 'https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9';
   try {
     const mr = await fetch(MAKE, {
       method: 'POST',
