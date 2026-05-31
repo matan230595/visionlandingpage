@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/lead.js": {
+      "maxDuration": 10
+    }
+  },
   "routes": [
     { "src": "/luxury",    "dest": "/luxury.html" },
     { "src": "/emergency", "dest": "/emergency.html" },
