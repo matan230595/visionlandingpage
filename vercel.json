@@ -6,7 +6,6 @@
     { "src": "/solutions", "dest": "/solutions.html" },
     { "src": "/espanol",   "dest": "/espanol.html" },
     { "src": "/impact",    "dest": "/luxury.html" },
-    { "src": "/repair",    "dest": "/emergency.html" },
-    { "src": "/formfix.js","dest": "/formfix.js" }
+    { "src": "/repair",    "dest": "/emergency.html" }
   ]
 }
