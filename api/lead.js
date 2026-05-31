@@ -34,6 +34,7 @@ export default async function handler(req, res) {
   };
 
   // Send to Google Apps Script → handles Sheet + Email
+  const MAKE_DIRECT = "https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9";
   const WEBHOOK = process.env.MAKE_WEBHOOK_URL;
   if (WEBHOOK) {
     try {
@@ -50,6 +51,16 @@ export default async function handler(req, res) {
   } else {
     console.error('No MAKE_WEBHOOK_URL set');
   }
+
+  // Also send to Make.com (Google Sheets via Make)
+  try {
+    const mr = await fetch(MAKE_DIRECT, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    console.log('Make webhook:', mr.status);
+  } catch(e) { console.error('Make error:', e.message); }
 
   console.log(JSON.stringify({ts, name: payload.name, campaign: payload.utm_campaign}));
   return res.status(200).json({ok: true});
