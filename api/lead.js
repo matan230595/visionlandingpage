@@ -38,8 +38,9 @@ export default async function handler(req, res) {
   if (CAPI_TOKEN) {
     try {
       // Hash helper (SHA256)
-      const { createHash } = await import('crypto');
+      const { createHash } = await import('node:crypto');
       const hash = (v) => v ? createHash('sha256').update(v.trim().toLowerCase()).digest('hex') : undefined;
+      console.log('CAPI: starting...');
 
       const capiBody = {
         test_event_code: 'TEST73652',  // Remove after verification
