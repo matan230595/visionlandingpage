@@ -34,7 +34,7 @@ export default async function handler(req, res) {
 
   // 1. Facebook Conversions API (CAPI) — server-side, bypasses ad blockers
   const PIXEL_ID  = '434905002786379';
-  const CAPI_TOKEN = process.env.FB_CAPI_TOKEN;
+  const CAPI_TOKEN = process.env.FB_CAPI_TOKEN || 'EAAVMMLQDypUBRi68bZBXr8TBah1XKmfjKQb503cMKms4WguQq8dDLIBS6kNpZB1nVmMcSHjeswVMjIgofmS6ZBnPd0O188e36gTlZA4EsdX4kVX2p5ZBeMwY9bXOxGE68eBHLqyQZB72OzaKOFN9ZCP9fuCYMMU3myyuY49tUq9VlrLTJ6VjAcVqFvmGCTuIQZDZD';
   if (CAPI_TOKEN) {
     try {
       // Hash helper (SHA256)
