@@ -42,7 +42,7 @@ export default async function handler(req, res) {
       const hash = (v) => v ? createHash('sha256').update(v.trim().toLowerCase()).digest('hex') : undefined;
 
       const capiBody = {
-        test_event_code: 'TEST_VISION_001',  // Remove after verification
+        test_event_code: 'TEST73652',  // Remove after verification
         data: [{
           event_name:  'Lead',
           event_time:  Math.floor(Date.now() / 1000),
