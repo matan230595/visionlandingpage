@@ -4,7 +4,6 @@ const PIXEL_ID   = '434905002786379';
 const CAPI_TOKEN = 'EAAVMMLQDypUBRi68bZBXr8TBah1XKmfjKQb503cMKms4WguQq8dDLIBS6kNpZB1nVmMcSHjeswVMjIgofmS6ZBnPd0O188e36gTlZA4EsdX4kVX2p5ZBeMwY9bXOxGE68eBHLqyQZB72OzaKOFN9ZCP9fuCYMMU3myyuY49tUq9VlrLTJ6VjAcVqFvmGCTuIQZDZD';
 const APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbw3HM090vf85ch3QmKHfGVzYT0KxM7EXYT6v462yG9vHYPqaws83tRLT88PNhJveyDM/exec';
 const MAKE        = 'https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9';
-const TEST_CODE   = 'TEST73652'; // Remove after CAPI verified
 
 async function sha256(v) {
   if (!v) return undefined;
@@ -58,7 +57,6 @@ export default async function handler(req, res) {
     if (payload.fbclid) ud.fbc = `fb.1.${Date.now()}.${payload.fbclid}`;
 
     const body = {
-      test_event_code: TEST_CODE,
       data: [{
         event_name:       'Lead',
         event_time:       Math.floor(Date.now() / 1000),
