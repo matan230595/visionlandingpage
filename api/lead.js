@@ -1,4 +1,4 @@
-import { createHash } from 'crypto';
+// No crypto import needed - using WebCrypto API
 
 const PIXEL_ID   = '434905002786379';
 const CAPI_TOKEN = 'EAAVMMLQDypUBRi68bZBXr8TBah1XKmfjKQb503cMKms4WguQq8dDLIBS6kNpZB1nVmMcSHjeswVMjIgofmS6ZBnPd0O188e36gTlZA4EsdX4kVX2p5ZBeMwY9bXOxGE68eBHLqyQZB72OzaKOFN9ZCP9fuCYMMU3myyuY49tUq9VlrLTJ6VjAcVqFvmGCTuIQZDZD';
@@ -6,7 +6,12 @@ const APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbw3HM090vf85ch3QmKH
 const MAKE        = 'https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9';
 const TEST_CODE   = 'TEST73652'; // Remove after CAPI verified
 
-const hash = (v) => v ? createHash('sha256').update(v.trim().toLowerCase()).digest('hex') : undefined;
+async function sha256(v) {
+  if (!v) return undefined;
+  const enc = new TextEncoder().encode(v.trim().toLowerCase());
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -47,9 +52,9 @@ export default async function handler(req, res) {
   try {
     console.log('CAPI: sending...');
     const ud = {};
-    if (payload.email) ud.em = hash(payload.email);
-    if (payload.phone) ud.ph = hash(payload.phone.replace(/\D/g, ''));
-    if (payload.name)  { ud.fn = hash(payload.name.split(' ')[0]); }
+    if (payload.email) ud.em = await sha256(payload.email);
+    if (payload.phone) ud.ph = await sha256(payload.phone.replace(/\D/g, ''));
+    if (payload.name)  { ud.fn = await sha256(payload.name.split(' ')[0]); }
     if (payload.fbclid) ud.fbc = `fb.1.${Date.now()}.${payload.fbclid}`;
 
     const body = {
