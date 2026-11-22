@@ -1,7 +1,7 @@
 // No crypto import needed - using WebCrypto API
 
 const PIXEL_ID   = '434905002786379';
-const CAPI_TOKEN = 'EAAVMMLQDypUBRi68bZBXr8TBah1XKmfjKQb503cMKms4WguQq8dDLIBS6kNpZB1nVmMcSHjeswVMjIgofmS6ZBnPd0O188e36gTlZA4EsdX4kVX2p5ZBeMwY9bXOxGE68eBHLqyQZB72OzaKOFN9ZCP9fuCYMMU3myyuY49tUq9VlrLTJ6VjAcVqFvmGCTuIQZDZD';
+const CAPI_TOKEN = process.env.META_CAPI_TOKEN || '';
 const APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbw3HM090vf85ch3QmKHfGVzYT0KxM7EXYT6v462yG9vHYPqaws83tRLT88PNhJveyDM/exec';
 const MAKE        = 'https://hook.us2.make.com/8412n8tqeejvdj1nxxkp6aor269xcms9';
 
@@ -48,7 +48,7 @@ export default async function handler(req, res) {
   console.log('Lead:', payload.name, '|', payload.form_source, '|', payload.utm_campaign);
 
   // 1. Facebook CAPI — server-side Lead event
-  try {
+  if (CAPI_TOKEN) try {
     console.log('CAPI: sending...');
     const ud = {};
     if (payload.email) ud.em = await sha256(payload.email);
